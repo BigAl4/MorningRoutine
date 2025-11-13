@@ -20,7 +20,9 @@ def test_select_all_tasks():
         print("Fields: id, FromTime, ToTime, TaskName, Active")
         for row in tasks:
             print(row)
-    print(f"\nTotal tasks found: {len(tasks)}")
+        print(f"\nTotal tasks found: {len(tasks)}")
+    else:
+        print("\nNo tasks found.")
 
 def test_get_task_by_date():
     print(get_task_by_date('10/27/25') == "Yard Maintenance")

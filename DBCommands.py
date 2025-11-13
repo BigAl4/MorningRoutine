@@ -6,7 +6,7 @@ from GenericFunctions import parse_date
 DB_NAME = 'MorningRoutine.db'
 
 def GetConn():
-    """Return a connection to the ProgrammingWithAI.db database.
+    """Return a connection to the MorningRoutine.db database.
     
     Returns:
     - sqlite3.Connection: Active database connection object

@@ -4,7 +4,7 @@ import sqlite3
 from DBCommands import GetConn
 
 # Create a cursor object
-conn= GetConn()
+conn = GetConn()
 cursor = conn.cursor()
 
 # Create house_maintenance_tasks table
