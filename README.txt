@@ -14,10 +14,19 @@ CHANGES:
   12/1/25
         - Add editing features for the add_house_maint_task table
         - Main menu is getting crowded, so add a sub-menu for table editing.
-        - Orgainze code in DBMiddleware.  Created a file for all editing code for each table.
         - Fix bug whereby blank entries could be saved to the tables.
-        - Validate formatting on inputted times.
-        
+      
+        - Optimizations made:
+              1) Orgainze code in DBMiddleware.  Created a file for all editing code for each table.
+              2) Validate formatting on inputted times.
+              3) Numerous other optimizations were proposed, but I need more time to evaluate them.
+      
+       - CLEAR (Correct, Logical, Efficient, Appropriate, Readable) notes:
+              1) Moving table-specific code was a logical recommendation.  Efficient for programmer, since not wading through code of a table that isn't applicable.
+              2) Proposed change was tested and CORRECT, LOGICAL and APPROPRIATE, as previous version would save any values entered.
+              3) I didn't fully understand the other numerous optimizations proposed, so chose not to include them yet.  Some were "ninja-code" and weren'table
+                  obvious.  Caching was proposed, but given my experience can result in refreshing issues.  I need to understand their proposed code better
+                  before accepting further proposed enhancements.
 
 ToDo:
       Test cases were put in a Unittest framework for the factorial example.  Add them to this project
