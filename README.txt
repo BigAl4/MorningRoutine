@@ -11,6 +11,13 @@ CHANGES:
         - Adjusted the Edit/Delete tasks to LIST all of the tasks with their IDs so the user can choose which one to edit/delete.  Previously the
           program just asked for which ID to edit/delete.
 
+  12/1/25
+        - Add editing features for the add_house_maint_task table
+        - Main menu is getting crowded, so add a sub-menu for table editing.
+        - Orgainze code in DBMiddleware.  Created a file for all editing code for each table.
+        - Fix bug whereby blank entries could be saved to the tables.
+        
+
 ToDo:
       Test cases were put in a Unittest framework for the factorial example.  Add them to this project
 

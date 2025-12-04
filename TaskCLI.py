@@ -48,6 +48,9 @@ def prompt_add():
     fr = input("From time (HH:MM): ").strip()
     to = input("To time (HH:MM): ").strip()
     name = input("Task name: ").strip()
+    if not fr or not to or not name:
+        print("Error: From time, To time, and Task name cannot be blank. Record not saved.")
+        return
     active_in = input("Active? (y/n) [y]: ").strip().lower() or 'y'
     active = active_in.startswith('y')
     new_id = add_task(fr, to, name, active)
@@ -69,11 +72,13 @@ def prompt_edit():
     fr = input(f"From time [{fr_old}]: ").strip() or fr_old
     to = input(f"To time [{to_old}]: ").strip() or to_old
     name = input(f"Task name [{name_old}]: ").strip() or name_old
+    if not fr or not to or not name:
+        print("Error: From time, To time, and Task name cannot be blank. Record not saved.")
+        return
     active_in = input(f"Active (y/n) [{'y' if active_old else 'n'}]: ").strip().lower()
     active = active_old if active_in == '' else active_in.startswith('y')
     updated = update_task(tid, from_time=fr, to_time=to, task_name=name, active=active)
     print(f"Updated {updated} row(s).")
-
 
 def prompt_delete():
     display_tasks()
@@ -151,6 +156,9 @@ def prompt_add_house_maint():
     """Add a new house maintenance task."""
     print("Add new house maintenance task:")
     name = input("Task name: ").strip()
+    if not name:
+        print("Error: Task name cannot be blank. Record not saved.")
+        return
     new_id = add_house_maint_task(name)
     print(f"Inserted house maintenance task id {new_id}.")
 
@@ -169,6 +177,9 @@ def prompt_edit_house_maint():
     _, name_old = row
     print(f"Current name: {name_old}")
     name = input("New task name (press Enter to keep): ").strip() or name_old
+    if not name:
+        print("Error: Task name cannot be blank. Record not saved.")
+        return
     updated = update_house_maint_task(tid, name)
     print(f"Updated {updated} row(s).")
 
