@@ -1,6 +1,5 @@
-"""Interactive CLI for managing tasks in the MorningRoutine database.
-Run: python TaskCLI.py
-"""
+"""Interactive CLI for managing tasks in the MorningRoutine database. Run: python TaskCLI.py """
+
 from DBMiddleware import list_tasks, add_task, update_task, delete_task, get_task, toggle_task_active
 
 MENU = """
