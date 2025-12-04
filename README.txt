@@ -16,6 +16,7 @@ CHANGES:
         - Main menu is getting crowded, so add a sub-menu for table editing.
         - Orgainze code in DBMiddleware.  Created a file for all editing code for each table.
         - Fix bug whereby blank entries could be saved to the tables.
+        - Validate formatting on inputted times.
         
 
 ToDo:
