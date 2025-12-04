@@ -1,16 +1,34 @@
 """Interactive CLI for managing tasks in the MorningRoutine database. Run: python TaskCLI.py """
 
-from DBMiddleware import list_tasks, add_task, update_task, delete_task, get_task, toggle_task_active
+from DBMiddleware import (list_tasks, add_task, update_task, delete_task, get_task, toggle_task_active,
+                          get_all_house_maint_tasks, add_house_maint_task, update_house_maint_task,
+                          delete_house_maint_task, get_house_maint_task)
 
 MENU = """
 --- Task Manager ---
 1. Print Today's Plan
-2. List tasks
-3. Add task
-4. Edit task
-5. Delete task
-6. Toggle active
-7. Exit
+2. Edit Tasks Table
+3. Edit House Maintenance Table
+4. Exit
+Choose: """
+
+EDITS_MENU = """
+--- Tasks Table Edits ---
+1. List tasks
+2. Add task
+3. Edit task
+4. Delete task
+5. Toggle active
+6. Back to Main Menu
+Choose: """
+
+HOUSE_MAINT_MENU = """
+--- House Maintenance Table Edits ---
+1. List house maintenance tasks
+2. Add house maintenance task
+3. Edit house maintenance task
+4. Delete house maintenance task
+5. Back to Main Menu
 Choose: """
 
 def display_tasks():
@@ -97,6 +115,95 @@ def print_todays_plan():
         print(f"{fr}-{to:<9} {name}")
     print()
 
+def edits_submenu():
+    """Handle the Tasks Table Edits submenu."""
+    while True:
+        choice = input(EDITS_MENU).strip()
+        if choice == '1':
+            display_tasks()
+        elif choice == '2':
+            prompt_add()
+        elif choice == '3':
+            prompt_edit()
+        elif choice == '4':
+            prompt_delete()
+        elif choice == '5':
+            prompt_toggle()
+        elif choice == '6':
+            break
+        else:
+            print("Invalid selection.")
+
+def display_house_maint_tasks():
+    """Display all house maintenance tasks."""
+    rows = get_all_house_maint_tasks()
+    if not rows:
+        print("No house maintenance tasks found.")
+        return
+    print("\nID  Task Name")
+    print("--  ----------------------------------------")
+    for r in rows:
+        tid, name = r
+        print(f"{tid:<3} {name}")
+    print()
+
+def prompt_add_house_maint():
+    """Add a new house maintenance task."""
+    print("Add new house maintenance task:")
+    name = input("Task name: ").strip()
+    new_id = add_house_maint_task(name)
+    print(f"Inserted house maintenance task id {new_id}.")
+
+def prompt_edit_house_maint():
+    """Edit an existing house maintenance task."""
+    display_house_maint_tasks()
+    tid_str = input("Task id to edit: ").strip()
+    if not tid_str.isdigit():
+        print("Invalid id.")
+        return
+    tid = int(tid_str)
+    row = get_house_maint_task(tid)
+    if not row:
+        print("Task not found.")
+        return
+    _, name_old = row
+    print(f"Current name: {name_old}")
+    name = input("New task name (press Enter to keep): ").strip() or name_old
+    updated = update_house_maint_task(tid, name)
+    print(f"Updated {updated} row(s).")
+
+def prompt_delete_house_maint():
+    """Delete a house maintenance task."""
+    display_house_maint_tasks()
+    tid_str = input("Task id to delete: ").strip()
+    if not tid_str.isdigit():
+        print("Invalid id.")
+        return
+    tid = int(tid_str)
+    confirm = input("Confirm delete? Type 'yes': ").strip().lower()
+    if confirm != 'yes':
+        print("Aborted.")
+        return
+    deleted = delete_house_maint_task(tid)
+    print(f"Deleted {deleted} row(s).")
+
+def house_maint_submenu():
+    """Handle the House Maintenance Table Edits submenu."""
+    while True:
+        choice = input(HOUSE_MAINT_MENU).strip()
+        if choice == '1':
+            display_house_maint_tasks()
+        elif choice == '2':
+            prompt_add_house_maint()
+        elif choice == '3':
+            prompt_edit_house_maint()
+        elif choice == '4':
+            prompt_delete_house_maint()
+        elif choice == '5':
+            break
+        else:
+            print("Invalid selection.")
+
 
 def main():
     while True:
@@ -104,16 +211,10 @@ def main():
         if choice == '1':
             print_todays_plan()
         elif choice == '2':
-            display_tasks()
+            edits_submenu()
         elif choice == '3':
-            prompt_add()
+            house_maint_submenu()
         elif choice == '4':
-            prompt_edit()
-        elif choice == '5':
-            prompt_delete()
-        elif choice == '6':
-            prompt_toggle()
-        elif choice == '7':
             print("Goodbye.")
             break
         else:

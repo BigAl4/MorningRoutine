@@ -118,3 +118,30 @@ def toggle_task_active(task_id: int) -> int:
     new_active = 0 if current_active else 1
     return update_task(task_id, active=bool(new_active))
 
+def add_house_maint_task(task_name: str) -> int:
+    """Insert a new task into the house_maintenance_tasks table.
+    Returns: new task id (int)"""
+    new_id = run_sql(
+        "INSERT INTO house_maintenance_tasks (task_name) VALUES (?)",
+        (task_name,)
+    )
+    return new_id
+
+def update_house_maint_task(task_id: int, task_name: str) -> int:
+    """Update a house maintenance task name. Returns rows affected."""
+    count = run_sql(
+        "UPDATE house_maintenance_tasks SET task_name = ? WHERE id = ?",
+        (task_name, task_id)
+    )
+    return count
+
+def delete_house_maint_task(task_id: int) -> int:
+    """Delete a house maintenance task by id. Returns rows affected."""
+    count = run_sql("DELETE FROM house_maintenance_tasks WHERE id = ?", (task_id,))
+    return count
+
+def get_house_maint_task(task_id: int):
+    """Return a single house maintenance task row by id or None if not found."""
+    results = run_sql("SELECT * FROM house_maintenance_tasks WHERE id = ?", (task_id,))
+    return results[0] if results else None
+
