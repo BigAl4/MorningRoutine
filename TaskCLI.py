@@ -1,5 +1,6 @@
 """Interactive CLI for managing tasks in the MorningRoutine database. Run: python TaskCLI.py """
 
+import re
 from DBMiddleware import (list_tasks, add_task, update_task, delete_task, get_task, toggle_task_active,
                           get_all_house_maint_tasks, add_house_maint_task, update_house_maint_task,
                           delete_house_maint_task, get_house_maint_task)
@@ -31,6 +32,10 @@ HOUSE_MAINT_MENU = """
 5. Back to Main Menu
 Choose: """
 
+def is_valid_time(time_str):
+    """Check if time is in HH:MM format (24-hour)."""
+    return bool(re.match(r'^\d{2}:\d{2}$', time_str))
+
 def display_tasks():
     rows = list_tasks()
     if not rows:
@@ -50,6 +55,9 @@ def prompt_add():
     name = input("Task name: ").strip()
     if not fr or not to or not name:
         print("Error: From time, To time, and Task name cannot be blank. Record not saved.")
+        return
+    if not is_valid_time(fr) or not is_valid_time(to):
+        print("Error: Times must be in HH:MM format (e.g., 09:30). Record not saved.")
         return
     active_in = input("Active? (y/n) [y]: ").strip().lower() or 'y'
     active = active_in.startswith('y')
@@ -74,6 +82,9 @@ def prompt_edit():
     name = input(f"Task name [{name_old}]: ").strip() or name_old
     if not fr or not to or not name:
         print("Error: From time, To time, and Task name cannot be blank. Record not saved.")
+        return
+    if not is_valid_time(fr) or not is_valid_time(to):
+        print("Error: Times must be in HH:MM format (e.g., 09:30). Record not saved.")
         return
     active_in = input(f"Active (y/n) [{'y' if active_old else 'n'}]: ").strip().lower()
     active = active_old if active_in == '' else active_in.startswith('y')
