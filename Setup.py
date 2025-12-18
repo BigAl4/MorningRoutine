@@ -51,6 +51,18 @@ cursor.execute('''
         ('12:00', '12:30', 'Wrap Up Morning Routine', 1);
 ''')
 
+# Create End of Day Notes table
+cursor.execute('''
+    CREATE TABLE IF NOT EXISTS end_of_day_notes (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        note TEXT NOT NULL,
+        DateAdded DATE NOT NULL
+    )
+''')
+
+cursor.execute('DELETE FROM end_of_day_notes')  # Clear existing data for idempotency
+
 conn.commit()       # Commit the changes
 conn.close()        # Close the connection
 
+print("Database and tables created successfully.")

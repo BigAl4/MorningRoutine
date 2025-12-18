@@ -8,6 +8,9 @@ from DBMiddleware_house_maintenance_tasks import (get_all_house_maint_tasks,
                                                   update_house_maint_task,
                                                   delete_house_maint_task, 
                                                   get_house_maint_task)
+from DBMiddleware_end_of_day_notes import (add_note, get_note, update_note, 
+                                            delete_note, list_notes, 
+                                            list_notes_by_date, get_todays_note, get_yestedays_note)
 
 def list_tasks_with_today_house_maint():
     """Return all tasks ordered by FromTime, with today's house maintenance task injected."""

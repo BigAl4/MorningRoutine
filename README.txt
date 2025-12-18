@@ -28,6 +28,13 @@ CHANGES:
                   obvious.  Caching was proposed, but given my experience can result in refreshing issues.  I need to understand their proposed code better
                   before accepting further proposed enhancements.
 
+      12/28/25 (Late submission; This was due last week, but I was away for daughter's graduation and move)
+       - Assignment 7 - Add New Feature/Secure Your code 
+            1) Fixed bug
+            2) Added EndOfDayNotes feature.  Allows ad-hoc notes to be added that will be shown the following
+               (mainly needed to add stock symbols for options that didn't execute today, so I remember to follow-up on them the following day)
+            3) 
+
 ToDo:
       Test cases were put in a Unittest framework for the factorial example.  Add them to this project
 
