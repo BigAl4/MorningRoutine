@@ -33,7 +33,10 @@ CHANGES:
             1) Fixed bug
             2) Added EndOfDayNotes feature.  Allows ad-hoc notes to be added that will be shown the following
                (mainly needed to add stock symbols for options that didn't execute today, so I remember to follow-up on them the following day)
-            3) 
+            3) Security Issues:
+                  - Parameterized SQL queries are already done.
+                  - Optionally recommended to encrypt the database, however I'm going to pass on this for now.
+                  - CoPilot gave me a "perfectly adequate" security score based upon current codebase.
 
 ToDo:
       Test cases were put in a Unittest framework for the factorial example.  Add them to this project
